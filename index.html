@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="theme-color" content="#000">
+    <title>RHI</title>
+
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.13/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">RHI</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="about">About</a>
+                </li>
+                <li>
+                    <a href="https://jamiemagee.co.uk">Blog</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<header>
+
+    <div class="col-md-offset-1 col-md-4" id="total">
+        <p class="emoji">💰🔥</p>
+    </div>
+
+    <div class="description col-md-6">
+        <h1>Renewable Heat Incentive</h1>
+        <h2>
+            Last updated <strong class="last-modified">28th February</strong>
+        </h2>
+        <p>
+            Find out which companies are claiming money under the RHI.
+        </p>
+
+        <p>
+            This data is a collection of the <a
+                href="https://www.economy-ni.gov.uk/news/renewable-heat-incentive-companies-list-published">data
+            recently released</a> by the <a href="https://www.economy-ni.gov.uk/">Department for the Economy.</a>
+        </p>
+    </div>
+
+</header>
+
+<div class="col-md-12" id="tabs">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#list" aria-controls="home" role="tab"
+                                                  data-toggle="tab">List</a></li>
+        <li role="presentation"><a href="#charts" aria-controls="charts" role="tab" data-toggle="tab">Chart</a>
+        </li>
+    </ul>
+</div>
+
+<div class="container body-content">
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="list">
+            <table class="table display" id="rhi">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Installations</th>
+                    <th>Payments</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="charts">
+            <div id="chart" class="container"></div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p>
+            This website was built by <a href="https://jamiemagee.co.uk">Jamie Magee</a> and is <a
+                href="https://github.com/JamieMagee/RHI">released as open source</a>.
+        </p>
+    </div>
+</footer>
+
+<script type="text/javascript"
+        src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.13/fh-3.1.2/r-2.1.1/datatables.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script type="application/javascript" src="index.js"></script>
+<script type="application/javascript" src="ga.js"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+td.details-control {
+    background: url('https://www.datatables.net/examples/resources/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+
+tr.shown td.details-control {
+    background: url('https://www.datatables.net/examples/resources/details_close.png') no-repeat center center;
+}
+
+html {
+    min-height: 100%;
+    position: relative;
+}
+
+body {
+    padding-bottom: 20px;
+    padding-top: 20px;
+    margin-bottom: 60px;
+}
+
+.navbar-inverse {
+    background-color: #000;
+    border: none;
+}
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+.navbar-inverse .navbar-brand:hover {
+    text-decoration: underline;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover {
+    background-color: white;
+    color: black;
+}
+
+header {
+    background: #005ea5;
+    color: #fff;
+    overflow: auto;
+    padding: 40px;
+}
+
+.emoji {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    font-size: 8vw;
+}
+
+#total:first-child {
+    font-size: 3vw;
+    text-align: center;
+}
+
+.body-content {
+    padding: 60px 15px;
+}
+
+table {
+    width: 100% !important;
+}
+
+tr > th,
+tr > td {
+    text-align: left;
+}
+
+tr > th:nth-child(3),
+tr > th:nth-child(4),
+tr > td:nth-child(3),
+tr > td:nth-child(4){
+    text-align: right;
+}
+
+@media (max-width: 767px) {
+    td:not([colspan='']) {
+        padding-left: 75px;
+    }
+
+    .emoji {
+        font-size: 30vw;
+    }
+
+    #total:first-child {
+        font-size: 10vw;
+        text-align: center;
+    }
+}
+
+p a, .list-unstyled li a {
+    font-weight: bold;
+}
+
+a:hover {
+    color: #337ab7;
+}
+
+.footer .container p:last-child {
+    margin-bottom: 15px;
+}
+
+.footer {
+    background-color: #005ea5;
+    bottom: 0;
+    color: #FFF;
+    font-size: .875em;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+}
+
+.footer .container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 68em;
+}
+
+.footer .container p {
+    margin: 0;
+}
+
+.footer .container:first-child {
+    margin-top: 15px;
+}
+
+.footer .container p a,
+header p a,
+header h2 a {
+    color: white;
+    font-weight: bold;
+}
+
+.footer .container p a:hover,
+header p a:hover,
+header h2 a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+blockquote p {
+    font-size: 14px;
+}
+
+path {
+    stroke: steelblue;
+    stroke-width: 1;
+    fill: none;
+}
+
+.domain,
+g line{
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.x-axis text {
+    text-anchor: end !important;
+    transform: rotate(-45deg);
+}
+
+#tabs {
+    background: #005ea5;
+    font-size: xx-large;
+    padding: 0;
+    margin-bottom: 40px;
+}
+
+#tabs ul li {
+    width: 50%;
+    text-align: center;
+
+}
+
+#tabs ul li a {
+    color: #fff;
+    border: 0;
+    border-radius: 0;
+    margin: 0;
+}
+
+#tabs ul li:not(.active) a:hover {
+    background: #005ea5;
+    color: #fff;
+}
+
+#tabs ul li.active a {
+    color: #000
+}
