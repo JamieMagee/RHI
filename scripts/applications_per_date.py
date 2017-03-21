@@ -22,4 +22,6 @@ df.index = pd.to_datetime(df.index)
 
 weekly_applications = df.resample('W').sum().fillna(0)
 weekly_applications = weekly_applications.astype('int')
+weekly_applications['c'] = weekly_applications['a'].cumsum(skipna=False).resample('W').last()
+print(weekly_applications)
 weekly_applications.reset_index().to_json(JSON, orient='records', date_unit='s')

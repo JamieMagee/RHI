@@ -53,16 +53,24 @@ var countInstallations = function (data, type, row) {
     return row['installations'].length;
 };
 
-function drawChart() {
+function drawApplicationsCharts() {
     var jsonData = $.ajax({
         url: "data/application_dates.json",
         dataType: "json",
         async: false
     }).responseJSON;
 
-    // Create our data table out of JSON data loaded from server.
     var data = new google.visualization.arrayToDataTable([
-        [{type: 'date', label: 'date'}, {type: 'number', label: 'applications'}]
+        [
+            {type: 'date', label: 'date'},
+            {type: 'number', label: 'applications'},
+        ]
+    ]);
+    var cumData = new google.visualization.arrayToDataTable([
+        [
+            {type: 'date', label: 'date'},
+            {type: 'number', label: 'applications'},
+        ]
     ]);
 
     jsonData.forEach(function (value, index, array) {
@@ -70,12 +78,17 @@ function drawChart() {
             new Date(value.d * 1000),
             value.a
         ]);
+        cumData.addRow([
+            new Date(value.d * 1000),
+            value.c
+        ]);
     });
 
-    // Instantiate and draw our chart, passing in some options.
-    var chartDiv = document.getElementById('chart');
+    var appChartDiv = document.getElementById('app-chart');
+    var cumAppChartDiv = document.getElementById('cum-app-chart');
+
     var options = {
-        height: chartDiv.clientWidth / 1.5,
+        height: appChartDiv.clientWidth / 1.5,
         legend: 'none',
         vAxis: {
             title: 'Applications per week'
@@ -89,8 +102,11 @@ function drawChart() {
             height: "85%"
         }
     };
-    var chart = new google.visualization.LineChart(chartDiv);
+
+    var chart = new google.visualization.LineChart(appChartDiv);
     chart.draw(data, options);
+    var cumChart = new google.visualization.LineChart(cumAppChartDiv);
+    cumChart.draw(cumData, options);
 }
 
 $(document).ready(function () {
@@ -180,9 +196,9 @@ $(document).ready(function () {
     });
 
     google.charts.load('current', {'packages': ['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawApplicationsCharts);
 
-    window.addEventListener('resize', drawChart, true);
+    window.addEventListener('resize', drawApplicationsCharts, true);
 
 
 });
