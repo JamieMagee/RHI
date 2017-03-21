@@ -145,24 +145,6 @@ blockquote p {
     font-size: 14px;
 }
 
-path {
-    stroke: steelblue;
-    stroke-width: 1;
-    fill: none;
-}
-
-.domain,
-g line{
-    fill: none;
-    stroke: black;
-    shape-rendering: crispEdges;
-}
-
-.x-axis text {
-    text-anchor: end !important;
-    transform: rotate(-45deg);
-}
-
 #tabs {
     background: #005ea5;
     font-size: xx-large;
@@ -190,4 +172,8 @@ g line{
 
 #tabs ul li.active a {
     color: #000
+}
+
+.chart-title {
+    text-align: center;
 }

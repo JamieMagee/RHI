@@ -1,8 +1,7 @@
 import csv
-import json
 import os.path
-from collections import Counter, OrderedDict
-from datetime import datetime
+
+import pandas as pd
 
 CSV = os.path.join('..', 'data', 'rhi.csv')
 JSON = os.path.join('..', 'data', 'application_dates.json')
@@ -14,12 +13,13 @@ with open(CSV, newline='', encoding='utf-8') as csvfile:
     for row in reader:
         csv_rows.extend([{title[i]: row[title[i]] for i in range(len(title))}])
 
-dates = Counter(row['Date of Application'] for row in csv_rows)
-sorted_dates = OrderedDict(sorted(dates.items(), key=lambda x: datetime.strptime(x[0], "%d/%m/%Y")))
-print(dates.most_common())
-dates_list = []
-for k, v in sorted_dates.items():
-    dates_list.append({'date': k, 'value': v})
-with open(JSON, 'w', encoding='utf-8') as jsonfile:
-    jsonfile.write(
-        json.dumps(dates_list, ensure_ascii=False))
+dates = [row['Date of Application'] for row in csv_rows]
+
+df = pd.DataFrame(pd.Series(dates).value_counts())
+df.index.name = 'd'
+df.columns = ['a']
+df.index = pd.to_datetime(df.index)
+
+weekly_applications = df.resample('W').sum().fillna(0)
+weekly_applications = weekly_applications.astype('int')
+weekly_applications.reset_index().to_json(JSON, orient='records', date_unit='s')
