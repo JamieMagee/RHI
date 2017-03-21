@@ -91,7 +91,7 @@ function drawApplicationsCharts() {
         height: appChartDiv.clientWidth / 1.5,
         legend: 'none',
         vAxis: {
-            title: 'Applications per week'
+            title: 'Applications'
         },
         hAxis: {
             format: 'd MMM',
