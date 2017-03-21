@@ -54,6 +54,11 @@ var countInstallations = function (data, type, row) {
 };
 
 function drawApplicationsCharts() {
+
+    if (window.location.hash.indexOf('charts') === -1 || typeof google.visualization === 'undefined') {
+        return;
+    }
+
     var jsonData = $.ajax({
         url: "data/application_dates.json",
         dataType: "json",
@@ -86,9 +91,10 @@ function drawApplicationsCharts() {
 
     var appChartDiv = document.getElementById('app-chart');
     var cumAppChartDiv = document.getElementById('cum-app-chart');
+    var width = document.getElementById('content').clientWidth;
 
     var options = {
-        height: appChartDiv.clientWidth / 1.5,
+        height: width / 1.5,
         legend: 'none',
         vAxis: {
             title: 'Applications'
@@ -110,16 +116,6 @@ function drawApplicationsCharts() {
 }
 
 $(document).ready(function () {
-
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-        window.location.hash = e.target.hash;
-        window.scrollTo(0, 0);
-    });
-
-    var url = document.location.toString();
-    if (url.match('#')) {
-        $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
-    }
 
     var table = $('#rhi').DataTable({
         ajax: function (data, callback, settings) {
@@ -176,6 +172,23 @@ $(document).ready(function () {
         }
     });
 
+
+    google.charts.load('current', {'packages': ['corechart']});
+    google.charts.setOnLoadCallback(drawApplicationsCharts);
+
+    window.addEventListener('resize', drawApplicationsCharts, true);
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        window.location.hash = e.target.hash;
+        window.scrollTo(0, 0);
+        drawApplicationsCharts();
+    });
+
+    var url = document.location.toString();
+    if (url.match('#')) {
+        $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
+    }
+
     $('#rhi').find('tbody').on('click', 'td.details-control', function () {
         var tr = $(this).closest('tr');
         var row = table.row(tr);
@@ -194,11 +207,6 @@ $(document).ready(function () {
             })
         }
     });
-
-    google.charts.load('current', {'packages': ['corechart']});
-    google.charts.setOnLoadCallback(drawApplicationsCharts);
-
-    window.addEventListener('resize', drawApplicationsCharts, true);
 
 
 });
