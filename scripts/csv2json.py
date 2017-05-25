@@ -1,3 +1,4 @@
+import configparser
 import csv
 import json
 import os.path
@@ -16,30 +17,33 @@ with open(CSV, newline='', encoding='utf-8') as csvfile:
 
 rhi_list = []
 for row in csv_rows:
-    company_dict = next((item for item in rhi_list if item['name'] == row['Business Name']), None)
+    company_dict = next((item for item in rhi_list if item['name'] == row['Name']), None)
     installation = {
         'date': row['Date of Application'],
         'type': row['Technology Type'],
-        'capacity': row['Installation Capacity (kWth)'],
-        'payments': row['Total of payments made at 28 February 2017 (£)']
+        'capacity': row['Installation Capacity'],
+        'payments': row['Payments']
     }
     if company_dict is not None:
         [v.append(installation.copy()) for k, v in company_dict.items() if k == 'installations']
     else:
         company_dict = {
-            'name': row['Business Name'],
-            'postcode': row['Company Location by Trimmed Postcode'],
+            'name': row['Name'],
+            'postcode': row['Location'],
             'installations': [installation]
         }
         rhi_list.append(company_dict)
 
 api_url = 'https://api.opencorporates.com/v0.4/companies/search'
+config = configparser.ConfigParser()
+config.read('api.cfg')
 
 for index in range(len(rhi_list)):
     postcode = rhi_list[index]['postcode']
     company_name = rhi_list[index]['name']
-    payload = {'q': company_name, 'normalise_company_name': 'true', 'jurisdiction_code': 'gb', 'inactive': 'false',
-               'registered_address': postcode}
+    payload = {'q': company_name, 'normalise_company_name': 'true', 'jurisdiction_code': 'gb',
+               'inactive': 'false',
+               'registered_address': postcode, 'api_token': config['opencorporates']['api_token']}
     r = requests.get(api_url, params=payload)
     if r.status_code != 200:
         continue
